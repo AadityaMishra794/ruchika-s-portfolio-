@@ -87,17 +87,22 @@ export default function About() {
               About Me
             </h2>
 
-            <div className="space-y-4 font-body text-muted leading-relaxed text-base">
-              <p>
-                I'm Ruchika, a journalism student with a deep love for storytelling and a curious mind for understanding how brands communicate in the digital world.
-              </p>
-              <p>
-                Through my internship in digital marketing, I'm learning to blend creativity with data and make content that creates impact — whether it's a compelling article, an SEO-optimized blog, or a social media campaign.
-              </p>
-              <p>
-                I believe every story deserves to be told well, and every brand deserves to be heard clearly.
-              </p>
-            </div>
+          
+<div className="space-y-4 font-body text-muted leading-relaxed text-base">
+  <p>
+    I'm Ruchika, passionate about digital marketing, storytelling, and understanding what truly connects brands with people. My foundation in journalism has helped me develop a strong eye for research, communication, and crafting narratives that make an impact.
+  </p>
+
+  <p>
+    I enjoy working across SEO, content creation, and social media, where creativity meets strategy. Exploring audience behavior, building engaging campaigns, and turning ideas into meaningful digital experiences are the parts of my work I enjoy the most.
+  </p>
+
+  <p>
+    With every project, my goal is simple—to create content that informs, inspires, and builds genuine connections while helping brands communicate with clarity and purpose.
+  </p>
+</div>
+```
+
 
             {/* Yellow accent line */}
             <motion.div
