@@ -1,48 +1,50 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState, lazy, Suspense } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import WhatIDo from './components/WhatIDo'
-import About from './components/About'
-import Journey from './components/Journey'
-import Contact from './components/Contact'
 import Preloader from './components/Preloader'
-import AmbientBackground from './components/AmbientBackground'
+
+const WhatIDo = lazy(() => import('./components/WhatIDo'))
+const About = lazy(() => import('./components/About'))
+const Journey = lazy(() => import('./components/Journey'))
+const Contact = lazy(() => import('./components/Contact'))
+const AmbientBackground = lazy(() => import('./components/AmbientBackground'))
 
 function App() {
   const [loaded, setLoaded] = useState(false)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   useEffect(() => {
-    // Initialize smooth scroll with Lenis
+    if (!loaded || isMobile) return
+
     let lenis: any = null
-    
+    let rafId: number
+
     const initLenis = async () => {
       try {
         const { default: Lenis } = await import('@studio-freight/lenis')
         lenis = new Lenis({
-          duration: 1.2,
+          duration: 1.0,
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
+          touchMultiplier: 0,
         })
-
         function raf(time: number) {
           lenis.raf(time)
-          requestAnimationFrame(raf)
+          rafId = requestAnimationFrame(raf)
         }
-        requestAnimationFrame(raf)
+        rafId = requestAnimationFrame(raf)
       } catch {
-        // Lenis unavailable, use native scroll
+        // fallback to native scroll
       }
     }
 
-    if (loaded) {
-      initLenis()
-    }
-
+    initLenis()
     return () => {
+      cancelAnimationFrame(rafId)
       if (lenis) lenis.destroy()
     }
-  }, [loaded])
+  }, [loaded, isMobile])
 
   return (
     <>
@@ -51,15 +53,19 @@ function App() {
       </AnimatePresence>
 
       {loaded && (
-        <div className="grain relative">
-          <AmbientBackground />
+        <div className="relative">
+          <Suspense fallback={null}>
+            <AmbientBackground />
+          </Suspense>
           <Navbar />
           <main>
             <Hero />
-            <WhatIDo />
-            <About />
-            <Journey />
-            <Contact />
+            <Suspense fallback={<div className="h-screen" />}>
+              <WhatIDo />
+              <About />
+              <Journey />
+              <Contact />
+            </Suspense>
           </main>
         </div>
       )}
