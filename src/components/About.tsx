@@ -46,12 +46,11 @@ export default function About() {
                 className="absolute -bottom-6 -right-8 bg-white p-2 pb-8 shadow-xl rounded-lg"
                 style={{ rotate: '4deg' }}
               >
-                <div className="w-[120px] h-[100px] bg-accent/30 rounded-sm flex items-center justify-center">
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <rect x="5" y="8" width="30" height="24" rx="3" stroke="#1C1C1C" strokeWidth="1.5" fill="none"/>
-                    <path d="M5 18 L14 13 L20 17 L27 11 L35 18" stroke="#F4C430" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </div>
+                <img
+  src="/ruchika-card.jpg"
+  alt="Ruchika Dangi"
+  className="w-[120px] h-[100px] object-cover object-top rounded-sm"
+/>
                 <div className="absolute bottom-2 left-0 right-0 text-center font-label text-[10px] text-muted">Stories · Strategy · Impact</div>
               </motion.div>
 
