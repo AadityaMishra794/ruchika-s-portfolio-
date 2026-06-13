@@ -1,0 +1,115 @@
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+
+const tags = ['Curious', 'Creative', 'Consistent']
+
+export default function About() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section id="about" ref={ref} className="relative py-20 md:py-28 bg-cream/40">
+      <div className="max-w-6xl mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+          {/* Portrait side */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex justify-center"
+          >
+            {/* Polaroid-style frame */}
+            <div className="relative">
+              <motion.div
+                animate={{ rotate: [-1, 1, -1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                className="bg-white p-3 pb-10 shadow-2xl shadow-ink/10 rounded-lg"
+                style={{ rotate: '-2deg' }}
+              >
+                <img
+                  src="/ruchika-about.png"
+                  alt="Ruchika Dangi"
+                  className="w-[260px] md:w-[300px] h-[300px] md:h-[360px] object-cover rounded-sm"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-3 left-0 right-0 text-center font-display text-sm italic text-muted">
+                  Ruchika Dangi
+                </div>
+              </motion.div>
+
+              {/* Second photo tilted */}
+              <motion.div
+                initial={{ opacity: 0, rotate: 4, x: 20 }}
+                animate={isInView ? { opacity: 1, rotate: 4, x: 20 } : {}}
+                transition={{ delay: 0.3, duration: 0.7 }}
+                className="absolute -bottom-6 -right-8 bg-white p-2 pb-8 shadow-xl rounded-lg"
+                style={{ rotate: '4deg' }}
+              >
+                <div className="w-[120px] h-[100px] bg-accent/30 rounded-sm flex items-center justify-center">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect x="5" y="8" width="30" height="24" rx="3" stroke="#1C1C1C" strokeWidth="1.5" fill="none"/>
+                    <path d="M5 18 L14 13 L20 17 L27 11 L35 18" stroke="#F4C430" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div className="absolute bottom-2 left-0 right-0 text-center font-label text-[10px] text-muted">Stories · Strategy · Impact</div>
+              </motion.div>
+
+              {/* Tags */}
+              <div className="absolute -bottom-16 left-0 flex gap-2">
+                {tags.map((tag, i) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="font-label text-xs font-semibold bg-white border border-primary/20 text-ink px-3 py-1 rounded-full shadow-sm"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Text side */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 md:mt-0"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-5 h-px bg-primary" />
+              <span className="font-label text-xs font-semibold tracking-[0.2em] uppercase text-primary">About Me</span>
+            </div>
+
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-ink mb-6 leading-tight">
+              About Me
+            </h2>
+
+            <div className="space-y-4 font-body text-muted leading-relaxed text-base">
+              <p>
+                I'm Ruchika, a journalism student with a deep love for storytelling and a curious mind for understanding how brands communicate in the digital world.
+              </p>
+              <p>
+                Through my internship in digital marketing, I'm learning to blend creativity with data and make content that creates impact — whether it's a compelling article, an SEO-optimized blog, or a social media campaign.
+              </p>
+              <p>
+                I believe every story deserves to be told well, and every brand deserves to be heard clearly.
+              </p>
+            </div>
+
+            {/* Yellow accent line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={isInView ? { scaleX: 1 } : {}}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="mt-8 h-px bg-gradient-to-r from-primary to-transparent origin-left"
+            />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
