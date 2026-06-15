@@ -14,7 +14,7 @@ const links = [
     icon: '💼',
     label: 'LinkedIn',
     value: 'linkedin.com/in/ruchikadangi',
-    href: 'https://linkedin.com/in/ruchikadangi',
+    href: 'https://www.linkedin.com/in/ruchika-d-834419388/',
     color: '#FFF8E8',
     hint: "let's be professional besties 🤝",
   },
